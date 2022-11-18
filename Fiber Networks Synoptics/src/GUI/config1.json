@@ -1,0 +1,9 @@
+{ "config1.json" : [
+    ["ISP Name", "VDF"],
+    ["Central Station Block Format", "CO_CDL"],
+    ["Fusion Block Format", "JFO0000"],
+    ["Splitting Block Format", "JSO0000"],
+    ["Costumer Block Format", "HF0000"],
+    ["Cable Tag Format", "S32_N0_0_O_0-0"],
+    ["Splitting Cable Tag Format", "VDF-PEN00-0000 0/0 0/0 0/0"]
+]}
