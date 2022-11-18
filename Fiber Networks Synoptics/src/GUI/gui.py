@@ -1,18 +1,25 @@
 import PySimpleGUI as sg
 import json
+import re
 import os
 import io
 from PIL import Image
 
-def load_file(filename):
-    with open(filename, "r") as fs:
-        dict = json.load(fs)
-    config = dict["config1.json"]
+# Converts a JSON file into a python dictionary
+def load_file(path): 
+    with open(path, "r") as fs:
+        # De-serializes a json file structure
+        dict = json.load(fs) 
+
+    filename = re.split("/", path).pop()
+    # Extracts the json file content from it's dictionary 
+    config = dict[filename] 
     return config
 
 def view_config(config, filename):
 
-    sg.theme('DarkAmber') # Definir cor da janela
+    # Define window color
+    sg.theme('DarkAmber') 
 
     config_headings = ["key", "value"]
     config_lines = config
@@ -24,16 +31,16 @@ def view_config(config, filename):
                                num_rows=len(config),
                                key='-TABLE-',
                                row_height=35)],  
-                     [sg.Button("Exit")]
+                     [sg.Button("EXIT")]
                     ]
     config_window = sg.Window(filename, config_layout, size = (600, 600))
 
     while True:
-
         event, values = config_window.read()
 
         if event == "EXIT" or event == sg.WIN_CLOSED:
             break
+    return
 
 def create_config():
     config = []
@@ -51,7 +58,7 @@ def create_config():
                      [sg.Text("Cable Block Format:"), sg.InputText(key = "-CTBformat-")],
                      [sg.Text("Splitting Cable Block Format:"), sg.InputText(key = "-SCBformat-")],
                      [sg.Button("Save")],
-                     [sg.Button("Exit")]
+                     [sg.Button("EXIT")]
                     ]
 
     config_window = sg.Window("Config File Creator", config_layout, size = (600, 600))
@@ -59,28 +66,31 @@ def create_config():
     while True:
         event, values = config_window.read()
 
-        if event == "EXIT" or event == sg.WIN_closed:
-            if config != []:
-                return
-            else:
-                sg.popup("Incomplete config, operation aborted!")
-                return
+        if event == "EXIT" or event == sg.WIN_CLOSED:
+            break
 
         if event == "Save":
-            if values["-filename-"] != "" and values["-ISPname-"] != "" and values["-CSBformat-"] != "" and values["-FBformat-"] != "" and values["-SBformat-"] != "" and values["-CBformat-"] != "" and values["-CTBformat-"] != "" and values["-SLBformat-"] != "":
-                file_dict = { "config1.json" : [
+            if values["-filename-"] != "" and values["-ISPname-"] != "" and values["-CSBformat-"] != "" and values["-FBformat-"] != "" and values["-SBformat-"] != "" and values["-CBformat-"] != "" and values["-CTBformat-"] != "" and values["-SCBformat-"] != "":
+                file_dict = { values["-filename-"] + ".json" : [
                                     ["ISP Name", values["-ISPname-"]],
                                     ["Central Station Block Format", values["-CSBformat-"]],
                                     ["Fusion Block Format", values["-FBformat-"]],
                                     ["Splitting Block Format", values["-SBformat-"]],
                                     ["Costumer Block Format", values["-CBformat-"]],
                                     ["Cable Tag Format", values["-CTBformat-"]],
-                                    ["Splitting Cable Tag Format", values["-SLBformat-"]]
+                                    ["Splitting Cable Tag Format", values["-SCBformat-"]]
                                    ]
                             } 
                 json_object = json.dumps(file_dict, indent = 4)
 
-                with open(values["-filename-"]
+                with open(values["-filename-"] + ".json", "w") as outfile:
+                    outfile.write(json_object)
+                    sg.popup("File Saved to " + values["-filename-"])
+                    break
+                
+            else:
+                sg.popup("Incomplete config, operation aborted!")
+                break
     return
 
 def gui():
@@ -107,8 +117,9 @@ def gui():
         if event == "EXIT" or event == sg.WIN_CLOSED:
             break
         
-        if event == "Load Config":
+        if event == "Load Config" and values["-FILE-"] != "":
             config = load_file(values["-FILE-"])
+            sg.popup("COnfiguration File Loaded Successfully!")
             
         if event == "View Config" and config != []:
             view_config(config, values["-FILE-"])

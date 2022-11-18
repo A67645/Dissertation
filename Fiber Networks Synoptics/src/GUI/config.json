@@ -1,0 +1,32 @@
+{
+    "config.json": [
+        [
+            "ISP Name",
+            "MEO"
+        ],
+        [
+            "Central Station Block Format",
+            "CS-0000"
+        ],
+        [
+            "Fusion Block Format",
+            "OFJ-0000"
+        ],
+        [
+            "Splitting Block Format",
+            "OSJ-0000"
+        ],
+        [
+            "Costumer Block Format",
+            "FTTH-0000"
+        ],
+        [
+            "Cable Tag Format",
+            "OC-0000"
+        ],
+        [
+            "Splitting Cable Tag Format",
+            "SC-0000"
+        ]
+    ]
+}
