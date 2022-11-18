@@ -1,7 +1,30 @@
-link ficherio partilhado: https://onedrive.live.com/redir?resid=341EBFD64805E2D!21178&authkey=!AIu_Z-1wvZW-wl4&ithint=file%2cxlsx&e=lMRM3R
-criar GitHub e adicionar link a ficheiro partilhado
-criar documento de dissertação (com template oficial) no overleaf e adicionar link a ficheiro partilhado
-adquirir artigos sobre redes de fibra
-criar ficheiro de "to do list" com template adequado
-12/10 - 9h palestra UM
-13/10 - 10h00 : 12h30, reunião proef (presencial trofa, Rua do Poente, nº166 4786-909 Trofa)
+Novembro 2022:
+1. adquirir mais artigos sobre redes de fibra e processamento de ficheiros CAD (DXF e DWG) em repositórios:
+	- IEEE Explore: https://ieeexplore.ieee.org/Xplore/home.jsp
+	- ACM Digital Library:  https://dl.acm.org/
+	- Elsevier Scopus: https://www.scopus.com/
+	- Web of Science: https://www.webofscience.com/
+	- Google Scholar: https://scholar.google.pt/
+
+2. Completar documento de requisitos com formalização de requisitos funcionais e não funcionais incluindo 
+   condições de validação e entidade de validação.
+
+3. Criar Plano de Trabalhos detalhado segundo o modelo requisitado pela Proef:
+	----------------------------------------EMAIL--------------------------------------------------------------
+	Peço que detalhem os planos de trabalho, definido tarefas e datas de entrega, tanto por vossa parte como pela parte dos vossos supervisores externos.
+	Esse pedido foi-me feito pela empresa, que gostaria de revê-lo ASAP.
+	A 1ª tarefa talvez possa ser a apresentação dos trabalhos relacionados, onde farão uma exposição onde analisam esses trabalhos e propõem opções quanto à arquitetura, 
+	tecnologias e o método que sugerem usar para gerir o trabalho (por exemplo, Scrum com reuniões quinzenais, armazenamento do código no GitHub, etc.).
+	Talvez a 2ª tarefa (a ser desenvolvida em paralelo com a 1ª) deva ser a especificação de requisitos. Devem definir datas para a) entrega de uma primeira versão (aluno),
+	b) receção da revisão dos supervisores externos, c) entrega da versão final (aluno).
+	A 3ª tarefa poderia ser o desenho da aplicação, em particular, a arquitetura (que deve contemplar a integração com outros sistemas) e as interfaces de utilizador.
+	E assim em diante.
+	Sugiro que preparem esse calendário e que me enviem até o dia 18 de novembro. Envio feedback em seguida, e revemos numa reunião presencial.
+ 	------------------------------------------------------------------------------------------------------------
+
+4. Iniciar capítulos 1, 2 e 3 da dissertação.
+
+5. Introduzir gestor de referências bibliográficas no overleaf e documento de dissertação:
+	- Zotero: https://www.zotero.org/
+	- Mendeley: https://www.mendeley.com/search/
+	- JabRef: https://www.jabref.org/
