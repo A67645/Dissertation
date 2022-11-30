@@ -6,3 +6,4 @@ Excel: https://onedrive.live.com/view.aspx?resid=341EBFD64805E2D!21178&ithint=fi
 Requisitos Bolsa: https://algoritmi.uminho.pt/open_positions/3518/
 Apresentação Powerpoint: https://docs.google.com/presentation/d/1HCfgIYxLXwbdZg-90Ptvw2qq2lW6LOrQntptFwbFa-c/edit#slide=id.p
 Pasta sharepoint Proef: https://proefgroup.sharepoint.com/:f:/s/ProefGroupCtedraProef-DST-IB-S-TemasdeDissertao/En2gu79GGmdOu465h-U1JSYBzXvNAfMJVVMIp06PvSUgfg?email=a67645%40alunos.uminho.pt&e=5%3anNJJVJ&at=9
+Azure DevOps: https://dev.azure.com/ProefNext/Fiber%20Networks%20Synoptics
