@@ -1,4 +1,7 @@
 # Splitting Zone or JSO Zone class file
+from Cable import Cable
+
+
 class SplittingZone:
 
     def __init__(self):  # Instance Variables definition
