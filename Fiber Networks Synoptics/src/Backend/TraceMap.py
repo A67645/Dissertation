@@ -19,8 +19,6 @@ class TraceMap:
         self.primary_cables = list()
         self.secondary_cables = list()
         self.pdo_list = list()
-        self.insert_map = {}
-        self.lwpolyline_map = {}
 
     @staticmethod
     def open_dxf(path):
@@ -45,7 +43,8 @@ class TraceMap:
         for block in self.model_space.query("INSERT"):
             print(str(block))
             for attrib in block.attribs:
-                print("Tag: {}, Value: {}".format(attrib.dxf.tag, attrib.dxf.text))
+                print("Tag: {}, Value: {}".format(attrib.dxf.tag, attrib.dxf.text), end=" | ")
+            print("\n______________________________________")
 
     def parse_to_list(self):
         for entity in self.model_space:
@@ -75,7 +74,7 @@ class TraceMap:
 
     def print_maps(self):
         print("INSERT MAP")
-        for key,value in self.insert_map:
+        for key, value in self.insert_map:
             print("Layer: {} | Entity: {}".format(key, value))
         print("______________________________________________________________________________")
         print("LWPOLYLINE MAP")
@@ -84,9 +83,30 @@ class TraceMap:
 
     def parser(self):
         for block in self.model_space.query("INSERT"):
-            self.insert_map[block.dxf.layer] = block
+            if re.match('^Central', block.dxf.layer):
+                self.central = Central(block)
+            if re.match('^06 - PDO', block.dxf.layer):
+                self.pdo_list.append(block)
+            if re.match('^06 - JSO', block.dxf.layer):
+                self.splitting_junctions.append(block)
+            if re.match('^06 - JFO', block.dxf.layer):
+                self.fusion_junctions.append(block)
+            if re.match('^Central', block.dxf.layer) or re.match('^06 - PDO', block.dxf.layer) or re.match('^06 - JSO', block.dxf.layer) or re.match('^06 - JFO', block.dxf.layer):
+                for attrib in block.attribs:
+                    print("{}: {}".format(attrib.dxf.tag, attrib.dxf.text), end=" | ")
+                print("\n______________________________________")
+        print("-------------------------------------------------------------------------------------------------------")
         for block in self.model_space.query("LWPOLYLINE"):
-            self.insert_map[block.dxf.layer] = block
+            if re.match('^05 - Cabos Primários', block.dxf.layer):
+                self.primary_cables.append(Cable(block))
+                print(block.dxfattribs())
+            if re.match('^05 - Cabos Secundários', block.dxf.layer):
+                self.secondary_cables.append(Cable(block))
+                print(block.dxfattribs())
+            if re.match('^05 - Cabos Mistos', block.dxf.layer):
+                self.primary_cables.append(Cable(block))
+                print(block.dxfattribs())
+        print("-------------------------------------------------------------------------------------------------------")
 
     def set_identifier(self, identifier):
         self.identifier = identifier
