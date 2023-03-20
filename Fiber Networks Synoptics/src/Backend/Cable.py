@@ -1,14 +1,18 @@
 class Cable:
-    def __init__(self, entity=None, network="", cable_type="", identifier=""):
-        self.identifier = identifier
-        self.network = network
-        self.cable_type = cable_type
-        self.entity = entity
+    def __init__(self, entity):
+        self.entity = entity  # Entidade do ezdxf do tipo LWPOLYLINE que consiste no cabo
+        self.network = self.extract_network()  # Cabo Primário, Secundário ou Misto
+        self.cable_type = self.extract_cable_type()  # ORAC vs ORAP
         self.length = 1000
         self.leftover = 0
 
-    def set_identifier(self, identifier):
-        self.identifier = identifier
+    def extract_network(self) -> str:
+        layer = self.entity.dxf.layer.split("-")
+        return layer[1]
+
+    def extract_cable_type(self) -> str:
+        layer = self.entity.dxf.layer.split("-")
+        return layer[2]
 
     def set_network(self, network):
         self.network = network
@@ -24,9 +28,6 @@ class Cable:
 
     def set_entity(self, entity):
         self.entity = entity
-
-    def get_identifier(self) -> str:
-        return self.identifier
 
     def get_network(self) -> str:
         return self.network

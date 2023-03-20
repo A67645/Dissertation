@@ -1,11 +1,9 @@
-# Optical Central class file
-
 class Central:
 
-    def __init__(self, entity=None, identifier=""):
-        self.trailing_cables = list()
-        self.identifier = identifier
+    def __init__(self, entity):
         self.entity = entity
+        self.trailing_cables = list()
+        self.identifier = entity.get_attrib("CENTRAL")
 
     def set_trailing_cable(self, cables):
         for cable in cables:
