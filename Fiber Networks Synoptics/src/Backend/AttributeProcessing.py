@@ -35,3 +35,8 @@ def get_cable_type(block) -> str:
     value = block.dxf.layer
     network = re.split('-', value)
     return network[2]
+
+
+def get_cable_id(cable: str) -> str:
+    cable_id = re.split(' ', cable)
+    return cable_id[0]

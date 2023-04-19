@@ -4,6 +4,7 @@ from Cable import Cable
 from JFO import JFO
 from JSO import JSO
 from PDO import PDO
+from SplittingZone import SplittingZone
 import sys
 import ezdxf
 import re
@@ -20,6 +21,7 @@ class TraceMap:
         self.primary_cables = list()
         self.secondary_cables = list()
         self.pdo_list = list()
+        self.splitting_zones = list()
 
     @staticmethod
     def open_dxf(path):
@@ -40,6 +42,11 @@ class TraceMap:
             print("\tAttributes: %s\n" % entity.dxfattribs())
             print("\t________________________________")
 
+    @staticmethod
+    def print_insert(entity):
+        print([(attrib.dxf.tag, attrib.dxf.text) for attrib in entity.attribs])
+        print("______________________________________________________________")
+
     def print_lists(self):
         self.print_central()
         self.print_primary_cables()
@@ -47,6 +54,18 @@ class TraceMap:
         self.print_fusion_junctions()
         self.print_splitting_junctions()
         self.print_pdo_list()
+
+    def print_splitting_zone(self, jso: str) -> str:
+        for sz in self.splitting_zones:
+            if jso == sz.index:
+                return sz.to_string()
+
+    def print_link_table(self, jso: str) -> dict:
+        result = {}
+        for sz in self.splitting_zones:
+            if sz.index == jso:
+                result = sz.link_table
+        return str(result)
 
     def parser(self):
         for block in self.model_space.query("INSERT"):
@@ -58,22 +77,22 @@ class TraceMap:
                 self.splitting_junctions.append(JSO(block))
             if re.match('^06 - JFO', block.dxf.layer):
                 self.fusion_junctions.append(JFO(block))
-            if re.match('^Central', block.dxf.layer) or re.match('^06 - PDO', block.dxf.layer) or re.match('^06 - JSO', block.dxf.layer) or re.match('^06 - JFO', block.dxf.layer):
-                for attrib in block.attribs:
-                    print("{}: {}".format(attrib.dxf.tag, attrib.dxf.text), end=" | ")
-                print("\n______________________________________")
-        print("-------------------------------------------------------------------------------------------------------")
         for block in self.model_space.query("LWPOLYLINE"):
             if re.match('^05 - Cabos Primários', block.dxf.layer):
-                self.primary_cables.append(Cable(block))
-                print(block.dxfattribs())
+                self.primary_cables.append(Cable())
             if re.match('^05 - Cabos Secundários', block.dxf.layer):
-                self.secondary_cables.append(Cable(block))
-                print(block.dxfattribs())
+                self.secondary_cables.append(Cable())
             if re.match('^05 - Cabos Mistos', block.dxf.layer):
-                self.primary_cables.append(Cable(block))
-                print(block.dxfattribs())
-        print("-------------------------------------------------------------------------------------------------------")
+                self.primary_cables.append(Cable())
+        for jso in self.splitting_junctions:
+            sz = SplittingZone(jso.entity)
+            for pdo in self.pdo_list:
+                if pdo.entity.get_attrib_text("TIPO") == jso.entity.get_attrib_text("TIPO"):
+                    sz.add_pdo(pdo)
+            for jfo in self.fusion_junctions:
+                if jfo.entity.get_attrib_text("TIPO") == jso.entity.get_attrib_text("TIPO"):
+                    sz.add_jfo(jfo)
+            self.splitting_zones.append(sz)
 
     def set_identifier(self, identifier):
         self.identifier = identifier
@@ -108,18 +127,18 @@ class TraceMap:
 
     def print_fusion_junctions(self):
         print("FUSION JUNCTIONS")
-        for entity in self.fusion_junctions:
-            self.print_entity(entity)
+        for jfo in self.fusion_junctions:
+            self.print_insert(jfo.entity)
         print("----------------------------------------------------------------------")
 
     def print_splitting_junctions(self):
         print("SPLITTING JUNCTIONS")
-        for entity in self.splitting_junctions:
-            self.print_entity(entity)
+        for jso in self.splitting_junctions:
+            self.print_insert(jso.entity)
         print("----------------------------------------------------------------------")
 
     def print_pdo_list(self):
         print("PDO LIST")
-        for entity in self.pdo_list:
-            self.print_entity(entity)
+        for pdo in self.pdo_list:
+            self.print_insert(pdo.entity)
         print("----------------------------------------------------------------------")

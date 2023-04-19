@@ -1,11 +1,17 @@
+from Cable import Cable
+
+
 class JSO:
 
     def __init__(self, entity):
         self.entity = entity
-        self.identifier = entity.get_attrib("JFO#")
-        self.trailing_cable_identifier = entity.get_attrib("ETIQ_CABO_PRIMARIO")
-        self.trailing_cable_attributes = entity.get_attrib("CABO_CAP_COP")
-        self.hp = entity.get_attrib("HP")
+        self.identifier = entity.get_attrib_text("TIPO")
+        self.hp = entity.get_attrib_text("HP")
+        self.output_cables = []
+        self.input_cable = Cable()
+
+    def add_output_cable(self, cable):
+        self.output_cables.append(cable)
 
     def get_identifier(self) -> str:
         return self.identifier
