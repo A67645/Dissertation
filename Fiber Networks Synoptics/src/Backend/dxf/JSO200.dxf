@@ -493,7 +493,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2460054.986701389
+2460068.7308449075
   9
 $TDUCREATE
  40
@@ -501,7 +501,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2460054.986701389
+2460068.7308449075
   9
 $TDUUPDATE
  40
@@ -553,7 +553,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-54
+5F
   9
 $SURFTAB1
  70
@@ -933,11 +933,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{49EE554A-B980-47E3-8E2B-C165DEF473C3}
+{0C58C692-2825-404A-A4C8-B8D58018E1C5}
   9
 $VERSIONGUID
   2
-{3AFDCAC6-1BF9-4AC5-8C1F-BBAFF2F190BE}
+{CD02F2E2-EFDB-4799-A3C3-8D4B2CF667BE}
   9
 $EXTNAMES
 290
@@ -1327,9 +1327,9 @@ ISM
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -1343,9 +1343,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1801,7 +1801,7 @@ ACAD
   0
 APPID
   5
-51
+5C
 330
 3
 100
@@ -1815,7 +1815,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-52
+5D
 330
 3
 100
@@ -2398,6 +2398,8 @@ AcDbEntity
 SINOP_JSFO
 100
 AcDbBlockReference
+ 66
+1
   2
 JSO
  10
@@ -2411,6 +2413,66 @@ JSO
  42
 10.0
   0
+ATTRIB
+  5
+4C
+330
+17
+100
+AcDbEntity
+  8
+SINOP_JSFO
+100
+AcDbText
+ 10
+0.0
+ 20
+8.0
+ 30
+0.0
+ 40
+2.5
+  1
+JSO200
+ 72
+1
+ 11
+0.0
+ 21
+8.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+0.0
+ 21
+8.0
+ 31
+0.0
+  0
+SEQEND
+  5
+41
+330
+40
+100
+AcDbEntity
+  8
+SINOP_JSFO
+  0
 INSERT
   5
 42
@@ -2422,6 +2484,8 @@ AcDbEntity
 SINOP_JSFO
 100
 AcDbBlockReference
+ 66
+1
   2
 JFO
  10
@@ -2435,6 +2499,116 @@ JFO
  42
 10.0
   0
+ATTRIB
+  5
+4D
+330
+17
+100
+AcDbEntity
+  8
+SINOP_JSFO
+100
+AcDbText
+ 10
+60.0
+ 20
+-52.0
+ 30
+0.0
+ 40
+2.5
+  1
+JFO200
+ 72
+1
+ 11
+60.0
+ 21
+-52.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+60.0
+ 21
+-52.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+4E
+330
+17
+100
+AcDbEntity
+  8
+SINOP_JSFO
+100
+AcDbText
+ 10
+52.0
+ 20
+-60.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-BRA1-JSO200-95001
+ 72
+2
+ 11
+52.0
+ 21
+-60.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+52.0
+ 21
+-60.0
+ 31
+0.0
+  0
+SEQEND
+  5
+43
+330
+42
+100
+AcDbEntity
+  8
+SINOP_JSFO
+  0
 INSERT
   5
 44
@@ -2446,6 +2620,8 @@ AcDbEntity
 SINOP_PDO
 100
 AcDbBlockReference
+ 66
+1
   2
 PDO
  10
@@ -2459,6 +2635,116 @@ PDO
  42
 10.0
   0
+ATTRIB
+  5
+4F
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+60.0
+ 20
+8.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO2001
+ 72
+1
+ 11
+60.0
+ 21
+8.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+60.0
+ 21
+8.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+50
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+52.0
+ 20
+0.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-BRA1-95001
+ 72
+2
+ 11
+52.0
+ 21
+0.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+52.0
+ 21
+0.0
+ 31
+0.0
+  0
+SEQEND
+  5
+45
+330
+44
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
 INSERT
   5
 46
@@ -2470,6 +2756,8 @@ AcDbEntity
 SINOP_PDO
 100
 AcDbBlockReference
+ 66
+1
   2
 PDO
  10
@@ -2483,6 +2771,116 @@ PDO
  42
 10.0
   0
+ATTRIB
+  5
+51
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+120.0
+ 20
+-52.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO2002
+ 72
+1
+ 11
+120.0
+ 21
+-52.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+120.0
+ 21
+-52.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+52
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+112.0
+ 20
+-60.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-BRA1-JSO200-95002
+ 72
+2
+ 11
+112.0
+ 21
+-60.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+112.0
+ 21
+-60.0
+ 31
+0.0
+  0
+SEQEND
+  5
+47
+330
+46
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
 INSERT
   5
 48
@@ -2494,6 +2892,8 @@ AcDbEntity
 SINOP_PDO
 100
 AcDbBlockReference
+ 66
+1
   2
 PDO
  10
@@ -2507,6 +2907,116 @@ PDO
  42
 10.0
   0
+ATTRIB
+  5
+53
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+120.0
+ 20
+-112.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO2003
+ 72
+1
+ 11
+120.0
+ 21
+-112.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+120.0
+ 21
+-112.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+54
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+112.0
+ 20
+-120.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-BRA1-JSO200-95003
+ 72
+2
+ 11
+112.0
+ 21
+-120.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+112.0
+ 21
+-120.0
+ 31
+0.0
+  0
+SEQEND
+  5
+49
+330
+48
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
 INSERT
   5
 4A
@@ -2518,6 +3028,8 @@ AcDbEntity
 SINOP_PDO
 100
 AcDbBlockReference
+ 66
+1
   2
 PDO
  10
@@ -2531,9 +3043,119 @@ PDO
  42
 10.0
   0
+ATTRIB
+  5
+55
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+60.0
+ 20
+-112.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO2004
+ 72
+1
+ 11
+60.0
+ 21
+-112.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+60.0
+ 21
+-112.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+56
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+52.0
+ 20
+-120.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-BRA1-JSO200-95004
+ 72
+2
+ 11
+52.0
+ 21
+-120.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+52.0
+ 21
+-120.0
+ 31
+0.0
+  0
+SEQEND
+  5
+4B
+330
+4A
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
 LINE
   5
-4C
+57
 330
 17
 100
@@ -2557,7 +3179,7 @@ AcDbLine
   0
 LINE
   5
-4D
+58
 330
 17
 100
@@ -2581,7 +3203,7 @@ AcDbLine
   0
 LINE
   5
-4E
+59
 330
 17
 100
@@ -2605,7 +3227,7 @@ AcDbLine
   0
 LINE
   5
-4F
+5A
 330
 17
 100
@@ -2629,7 +3251,7 @@ AcDbLine
   0
 LINE
   5
-50
+5B
 330
 17
 100
@@ -3667,7 +4289,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-53
+5E
   0
 DICTIONARYVAR
   5
@@ -3679,11 +4301,11 @@ DictionaryVariables
 280
 0
   1
-1.0.2 @ 2023-04-19T22:40:51.651194+00:00
+1.0.2 @ 2023-05-03T16:32:25.769271+00:00
   0
 DICTIONARYVAR
   5
-53
+5E
 330
 2D
 100
@@ -3691,7 +4313,7 @@ DictionaryVariables
 280
 0
   1
-1.0.2 @ 2023-04-19T22:40:51.658273+00:00
+1.0.2 @ 2023-05-03T16:32:25.773821+00:00
   0
 ENDSEC
   0
