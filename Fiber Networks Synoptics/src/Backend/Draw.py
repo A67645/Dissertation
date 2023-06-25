@@ -5,7 +5,7 @@ from ezdxf.addons.drawing import RenderContext, Frontend
 from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
 from ezdxf.addons.drawing.properties import Properties, LayoutProperties
 from ezdxf.enums import TextEntityAlignment
-
+import re
 
 class Drawing:
     def __init__(self):
@@ -32,10 +32,56 @@ class Drawing:
 
     def blockref(self, name: str, coords, dxfattribs: dict, attribs: dict):
         blockref = self.modelspace.add_blockref(name, coords, dxfattribs)
-        blockref.add_auto_attribs(attribs)
+        for key, value in attribs.items():
+            blockref.add_attrib(key, value[0]).set_placement(value[1], align=value[2])
         return blockref
 
-    def draw(self, filename: str, path: str):
+    def draw_block(self, equipment, layer, identifier, cable, coords):
+        print(identifier + ': ' + str(coords))
+        self.blockref(equipment, coords, {'layer': layer, 'xscale': 10, 'yscale': 10},
+                      {'TIPO': [identifier, (coords[0], coords[1]+8), TextEntityAlignment.MIDDLE_CENTER],
+                       'CABO': [cable, (coords[0]-8, coords[1]), TextEntityAlignment.BOTTOM_RIGHT]})
+
+    def draw_line(self, start, end):
+        self.line((start[0], start[1]), (end[0], end[1]), 'SINOP_AEREO')
+
+    def iterate(self, pdo: dict, jso: dict, identifier: str, coords: list):
+        fork = 0
+        for key in pdo.keys():
+            if re.match(r'^JSO', key):
+                continue
+            elif key != identifier:
+                coords[0] += 100
+                if len(jso[key]) > 2:
+                    if fork > 0:
+                        coords[1] -= 100
+                        self.iterate(jso[key], jso, key, [coords[0], coords[1]])
+                        coords[1] += 100
+                    else:
+                        fork += 1
+                        self.iterate(jso[key], jso, key, [coords[0], coords[1]])
+                else:
+                    self.iterate(jso[key], jso, key, [coords[0], coords[1]])
+                coords[0] -= 100
+            else:
+                cable = jso[key][key]
+                fork = 0
+                if re.match(r'^PDO', key):
+                    self.draw_block('PDO', 'SINOP_PDO', key, cable, coords)
+                if re.match(r'^JFO', key):
+                    self.draw_block('JFO', 'SINOP_JSFO', key, cable, coords)
+                break
+
+    def iterate_dict(self, jso: dict, coords):
+        coords[0] += 100
+        for key in jso[next(iter(jso))]:
+            if key == next(iter(jso)) or re.match(r'^JSO', key):
+                continue
+            else:
+                self.iterate(jso[key], jso, key, coords)
+                coords[1] -= 100
+
+    def draw(self, filename: str, path: str, jso_zone: dict):
         layers = [
             ('SINOP_AEREO', 1, 'DASHED'),
             ('SINOP_CONDUTA', 160, 'DOTTED'),
@@ -47,28 +93,11 @@ class Drawing:
         jso = self.block("JSO", "JSO")
         pdo = self.block("PDO", "PDO")
         jfo = self.block("JFO", "JFO")
-        jso200 = self.blockref("JSO", (0, 0), {'layer': 'SINOP_JSFO', 'xscale': 10, 'yscale': 10}, {'NAME': "JSO%d" % 200})
-        jfo200 = self.blockref("JFO", (60, -60), {'layer': 'SINOP_JSFO', 'xscale': 10, 'yscale': 10}, {'NAME': "JFO%d" % 200})
-        pdo2001 = self.blockref("PDO", (60, 0), {'layer': 'SINOP_PDO', 'xscale': 10, 'yscale': 10}, {'NAME': "PDO%d" % 2001})
-        pdo2002 = self.blockref("PDO", (120, -60), {'layer': 'SINOP_PDO', 'xscale': 10, 'yscale': 10}, {'NAME': "PDO%d" % 2002})
-        pdo2003 = self.blockref("PDO", (120, -120), {'layer': 'SINOP_PDO', 'xscale': 10, 'yscale': 10}, {'NAME': "PDO%d" % 2003})
-        pdo2004 = self.blockref("PDO", (60, -120), {'layer': 'SINOP_PDO', 'xscale': 10, 'yscale': 10}, {'NAME': "PDO%d" % 2004})
-        jso200.add_attrib('TIPO', 'JSO200').set_placement((0, 8), align=TextEntityAlignment.MIDDLE_CENTER)
-        jfo200.add_attrib('TIPO', 'JFO200').set_placement((60, -52), align=TextEntityAlignment.MIDDLE_CENTER)
-        jfo200.add_attrib('CABO', 'VDF-BRA1-JSO200-95001').set_placement((52, -60), align=TextEntityAlignment.BOTTOM_RIGHT)
-        pdo2001.add_attrib('TIPO', 'PDO2001').set_placement((60, 8), align=TextEntityAlignment.MIDDLE_CENTER)
-        pdo2001.add_attrib('CABO', 'VDF-BRA1-95001').set_placement((52, 0), align=TextEntityAlignment.BOTTOM_RIGHT)
-        pdo2002.add_attrib('TIPO', 'PDO2002').set_placement((120, -52), align=TextEntityAlignment.MIDDLE_CENTER)
-        pdo2002.add_attrib('CABO', 'VDF-BRA1-JSO200-95002').set_placement((112, -60), align=TextEntityAlignment.BOTTOM_RIGHT)
-        pdo2003.add_attrib('TIPO', 'PDO2003').set_placement((120, -112), align=TextEntityAlignment.MIDDLE_CENTER)
-        pdo2003.add_attrib('CABO', 'VDF-BRA1-JSO200-95003').set_placement((112, -120), align=TextEntityAlignment.BOTTOM_RIGHT)
-        pdo2004.add_attrib('TIPO', 'PDO2004').set_placement((60, -112), align=TextEntityAlignment.MIDDLE_CENTER)
-        pdo2004.add_attrib('CABO', 'VDF-BRA1-JSO200-95004').set_placement((52, -120), align=TextEntityAlignment.BOTTOM_RIGHT)
-        self.line((0, 0), (60, 0), 'SINOP_CONDUTA')
-        self.line((0, 0), (60, -60), 'SINOP_AEREO')
-        self.line((0, 0), (60, -120), 'SINOP_AEREO')
-        self.line((60, -60), (120, -60), 'SINOP_AEREO')
-        self.line((60, -60), (120, -120), 'SINOP_AEREO')
+        jsoXXX = self.blockref("JSO", (0, 0), {'layer': 'SINOP_JSFO', 'xscale': 10, 'yscale': 10},
+                               {'TIPO': [next(iter(jso_zone)), (0, 8), TextEntityAlignment.MIDDLE_CENTER]})
+        coords = [0, 0]
+        self.iterate_dict(jso_zone, coords)
+
         self.document.saveas(path + filename + ".dxf")
 
     @staticmethod

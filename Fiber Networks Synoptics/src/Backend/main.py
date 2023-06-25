@@ -45,19 +45,21 @@ def draw():
     jso.add_circle((50, 0), 5, dxfattribs={"layer": "SINOP_PDO"})
     msp.add_blockref('JSO201', (0, 0), dxfattribs={"layer": "SINOP_JSFO"})
     msp.add_blockref('PDO', (50, 0), dxfattribs={"layer": "SINOP_PDO"})
-    doc.saveas(r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\blockref_tutorial.dxf")
+    # doc.saveas(r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\blockref_tutorial.dxf")
+    doc.saveas(r"C:\Users\User\Desktop\Dissertation\Fiber Networks Synoptics\doc\blockref_tutorial.dxf")
 
 
 def main():
-    path = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\01 - Traçado de Rede Secundária\01 - Traçado de Rede Secundária_PEN15_V2.dxf"
+    # path = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\01 - Traçado de Rede Secundária\01 - Traçado de Rede Secundária_PEN15_V2.dxf"
+    path = r"C:\Users\User\Desktop\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\01 - Traçado de Rede Secundária\01 - Traçado de Rede Secundária_PEN15_V2.dxf"
     trace_map = TraceMap(path)
     font = ('Helvetica', 12, 'bold italic')
     sg.set_options(font=font)
     layout = [[sg.Image('logo_proef_oval.png', background_color='#010060')],
               [sg.Button('Processar Traçado', button_color='#17DAA4')],
               [sg.Button('Zona de Splitting', button_color='#17DAA4'), sg.Input(key='-ZONA-')],
-              [sg.Button('Ligações de Equipamentos', button_color='#17DAA4'), sg.Input(key='-LIGACAO-')],
-              [sg.Button('Protótipo de Sinótico', button_color='#17DAA4')],
+              [sg.Button('Tabela de Splitting', button_color='#17DAA4'), sg.Input(key='-TABELA-')],
+              [sg.Button('Sinótico', button_color='#17DAA4'), sg.Input(key='-LIGACAO-')],
               [sg.Button('SAIR', button_color='#17DAA4')]]
     window = sg.Window('Fiber Networks Synoptics', layout, size=(800, 600), background_color='#010060')
     while True:
@@ -69,13 +71,16 @@ def main():
             sg.popup('Traçado Processado com Sucesso!')
         if event == 'Zona de Splitting':
             sg.popup(trace_map.print_splitting_zone(values['-ZONA-']))
-        if event == 'Ligações de Equipamentos':
-            sg.popup(trace_map.print_link_table(values['-LIGACAO-']))
-        if event == 'Protótipo de Sinótico':
+        if event == 'Tabela de Splitting':
+            for sz in trace_map.splitting_zones:
+                if sz.index == values['-TABELA-']:
+                    sg.popup(str(sz.link_table))
+        if event == 'Sinótico':
             drawing = Drawing()
-            drawing.draw("JSO200", r"dxf\\")
-            drawing.convert_dxf2img(['dxf\JSO200.dxf'], img_format='.png', img_res=150)
-            sg.popup_no_buttons("Pré-visão de um Sinótico", title='Preview', text_color='#F7F6F2', keep_on_top=True, image="preview.png")
+            drawing.draw(values['-LIGACAO-'], r"dxf\\", trace_map.link_table(values['-LIGACAO-']))
+            drawing.convert_dxf2img(['dxf\\' + values['-LIGACAO-'] + '.dxf'], img_format='.png', img_res=150)
+            sg.popup_no_buttons("Pré-visão de um Sinótico", title='Preview', text_color='#F7F6F2', keep_on_top=True,
+                                image="preview.png")
     window.close()
     # trace_map.print_splitting_zones()
 

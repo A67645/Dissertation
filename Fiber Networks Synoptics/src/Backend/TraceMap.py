@@ -60,12 +60,12 @@ class TraceMap:
             if jso == sz.index:
                 return sz.to_string()
 
-    def print_link_table(self, jso: str) -> dict:
+    def link_table(self, jso: str) -> dict:
         result = {}
         for sz in self.splitting_zones:
             if sz.index == jso:
                 result = sz.link_table
-        return str(result)
+        return result
 
     def parser(self):
         for block in self.model_space.query("INSERT"):

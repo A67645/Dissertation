@@ -61,9 +61,25 @@ class SplittingZone:
         filename = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\\" + self.index + ".dxf"
         # self.document.saveas(filename)
 
-    def link_table(self):
+    def sort_branch(self, zone_dict: dict, key) -> dict:
+        result = {}
+        for k in zone_dict[key].keys():
+            if k == key:
+                continue
+        return result
+
+    def sort_map(self, zone_dict: dict) -> dict:
+        result = {}
+        for key in zone_dict[self.index].keys():
+            if key == self.index:
+                continue
+            result[key] = self.sort_branch(zone_dict, key)
+        return result
+
+    def link_table(self) -> dict:
         row_start = 13
-        filename = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\04 - Tabelas de juntas de Rede Secundária\Tabelas de Ligação da " + self.index + ".xlsx"
+        # filename = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\04 - Tabelas de juntas de Rede Secundária\Tabelas de Ligação da " + self.index + ".xlsx"
+        filename = r"C:\Users\User\Desktop\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\04 - Tabelas de juntas de Rede Secundária\Tabelas de Ligação da " + self.index + ".xlsx"
         workbook = openpyxl.load_workbook(filename)
         zone_dict = {}
         for sheet in workbook.worksheets:
@@ -80,14 +96,9 @@ class SplittingZone:
                     continue
                 equipment_dict[line[13]] = []
                 if line[7] and line[13] != sheet.title and re.match('^VDF', line[7]):
-                    print(line[13])
-                    print(line[7])
                     equipment_dict[line[13]].append(line[7])
                 elif line[0] and line[13] == sheet.title and re.match('^VDF', line[0]):
-                    print(line[13])
-                    print(line[0])
                     equipment_dict[line[13]].append(line[0])
                 if len(equipment_dict[line[13]]) > 0:
-                    print(equipment_dict)
                     zone_dict[sheet.title] = equipment_dict
         return zone_dict

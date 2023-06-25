@@ -493,7 +493,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2460068.7308449075
+2460075.7535185185
   9
 $TDUCREATE
  40
@@ -501,7 +501,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2460068.7308449075
+2460075.7535185185
   9
 $TDUUPDATE
  40
@@ -553,7 +553,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-5F
+6B
   9
 $SURFTAB1
  70
@@ -933,11 +933,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{0C58C692-2825-404A-A4C8-B8D58018E1C5}
+{1D63B35C-6A73-4BF5-B38C-041F3E4C08AD}
   9
 $VERSIONGUID
   2
-{CD02F2E2-EFDB-4799-A3C3-8D4B2CF667BE}
+{7EF1EB1C-9CE4-4C73-8C05-4D5CF90E1582}
   9
 $EXTNAMES
 290
@@ -1327,9 +1327,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1343,9 +1343,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -1801,7 +1801,7 @@ ACAD
   0
 APPID
   5
-5C
+68
 330
 3
 100
@@ -1815,7 +1815,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-5D
+69
 330
 3
 100
@@ -2415,7 +2415,7 @@ JSO
   0
 ATTRIB
   5
-4C
+42
 330
 17
 100
@@ -2433,7 +2433,7 @@ AcDbText
  40
 2.5
   1
-JSO200
+JSO201
  72
 1
  11
@@ -2475,23 +2475,23 @@ SINOP_JSFO
   0
 INSERT
   5
-42
+43
 330
 17
 100
 AcDbEntity
   8
-SINOP_JSFO
+SINOP_PDO
 100
 AcDbBlockReference
  66
 1
   2
-JFO
+PDO
  10
-60.0
+225.0
  20
--60.0
+-225.0
  30
 0.0
  41
@@ -2501,31 +2501,31 @@ JFO
   0
 ATTRIB
   5
-4D
+45
 330
 17
 100
 AcDbEntity
   8
-SINOP_JSFO
+SINOP_PDO
 100
 AcDbText
  10
-60.0
+225.0
  20
--52.0
+-217.0
  30
 0.0
  40
 2.5
   1
-JFO200
+PDO3000
  72
 1
  11
-60.0
+225.0
  21
--52.0
+-217.0
  31
 0.0
 100
@@ -2543,39 +2543,39 @@ TIPO
  72
 0
  11
-60.0
+225.0
  21
--52.0
+-217.0
  31
 0.0
   0
 ATTRIB
   5
-4E
+46
 330
 17
 100
 AcDbEntity
   8
-SINOP_JSFO
+SINOP_PDO
 100
 AcDbText
  10
-52.0
+67.0
  20
--60.0
+-225.0
  30
 0.0
  40
 2.5
   1
-VDF-BRA1-JSO200-95001
+VDF-PEN15-JSO201-95007
  72
 2
  11
-52.0
+67.0
  21
--60.0
+-225.0
  31
 0.0
 100
@@ -2593,25 +2593,49 @@ CABO
  72
 0
  11
-52.0
+67.0
  21
--60.0
+-225.0
  31
 0.0
   0
 SEQEND
   5
-43
+44
 330
-42
+43
 100
 AcDbEntity
   8
-SINOP_JSFO
+SINOP_PDO
+  0
+LINE
+  5
+47
+330
+17
+100
+AcDbEntity
+  8
+SINOP_AEREO
+100
+AcDbLine
+ 10
+180.0
+ 20
+-225.0
+ 30
+0.0
+ 11
+225.0
+ 21
+-225.0
+ 31
+0.0
   0
 INSERT
   5
-44
+48
 330
 17
 100
@@ -2625,9 +2649,169 @@ AcDbBlockReference
   2
 PDO
  10
-60.0
+225.0
  20
+-150.0
+ 30
 0.0
+ 41
+10.0
+ 42
+10.0
+  0
+ATTRIB
+  5
+4A
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+225.0
+ 20
+-142.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO3001
+ 72
+1
+ 11
+225.0
+ 21
+-142.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+225.0
+ 21
+-142.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+4B
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+217.0
+ 20
+-150.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-PEN15-JSO201-95006
+ 72
+2
+ 11
+217.0
+ 21
+-150.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+217.0
+ 21
+-150.0
+ 31
+0.0
+  0
+SEQEND
+  5
+49
+330
+48
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
+LINE
+  5
+4C
+330
+17
+100
+AcDbEntity
+  8
+SINOP_AEREO
+100
+AcDbLine
+ 10
+150.0
+ 20
+-150.0
+ 30
+0.0
+ 11
+225.0
+ 21
+-150.0
+ 31
+0.0
+  0
+INSERT
+  5
+4D
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbBlockReference
+ 66
+1
+  2
+PDO
+ 10
+150.0
+ 20
+-150.0
  30
 0.0
  41
@@ -2647,21 +2831,21 @@ SINOP_PDO
 100
 AcDbText
  10
-60.0
+150.0
  20
-8.0
+-142.0
  30
 0.0
  40
 2.5
   1
-PDO2001
+PDO3002
  72
 1
  11
-60.0
+150.0
  21
-8.0
+-142.0
  31
 0.0
 100
@@ -2679,9 +2863,9 @@ TIPO
  72
 0
  11
-60.0
+150.0
  21
-8.0
+-142.0
  31
 0.0
   0
@@ -2697,21 +2881,21 @@ SINOP_PDO
 100
 AcDbText
  10
-52.0
+217.0
  20
-0.0
+-150.0
  30
 0.0
  40
 2.5
   1
-VDF-BRA1-95001
+VDF-PEN15-JSO201-95002
  72
 2
  11
-52.0
+217.0
  21
-0.0
+-150.0
  31
 0.0
 100
@@ -2729,49 +2913,23 @@ CABO
  72
 0
  11
-52.0
+217.0
  21
-0.0
+-150.0
  31
 0.0
   0
 SEQEND
   5
-45
+4E
 330
-44
+4D
 100
 AcDbEntity
   8
 SINOP_PDO
   0
-INSERT
-  5
-46
-330
-17
-100
-AcDbEntity
-  8
-SINOP_PDO
-100
-AcDbBlockReference
- 66
-1
-  2
-PDO
- 10
-120.0
- 20
--60.0
- 30
-0.0
- 41
-10.0
- 42
-10.0
-  0
-ATTRIB
+LINE
   5
 51
 330
@@ -2779,49 +2937,23 @@ ATTRIB
 100
 AcDbEntity
   8
-SINOP_PDO
+SINOP_AEREO
 100
-AcDbText
+AcDbLine
  10
-120.0
+75.0
  20
--52.0
+-150.0
  30
 0.0
- 40
-2.5
-  1
-PDO2002
- 72
-1
  11
-120.0
+150.0
  21
--52.0
- 31
-0.0
-100
-AcDbAttribute
-280
-0
-  2
-TIPO
- 70
-0
- 74
-2
- 71
-1
- 72
-0
- 11
-120.0
- 21
--52.0
+-150.0
  31
 0.0
   0
-ATTRIB
+INSERT
   5
 52
 330
@@ -2831,131 +2963,21 @@ AcDbEntity
   8
 SINOP_PDO
 100
-AcDbText
- 10
-112.0
- 20
--60.0
- 30
-0.0
- 40
-2.5
-  1
-VDF-BRA1-JSO200-95002
- 72
-2
- 11
-112.0
- 21
--60.0
- 31
-0.0
-100
-AcDbAttribute
-280
-0
-  2
-CABO
- 70
-0
- 74
-1
- 71
-1
- 72
-0
- 11
-112.0
- 21
--60.0
- 31
-0.0
-  0
-SEQEND
-  5
-47
-330
-46
-100
-AcDbEntity
-  8
-SINOP_PDO
-  0
-INSERT
-  5
-48
-330
-17
-100
-AcDbEntity
-  8
-SINOP_PDO
-100
 AcDbBlockReference
  66
 1
   2
 PDO
  10
-120.0
+75.0
  20
--120.0
+-150.0
  30
 0.0
  41
 10.0
  42
 10.0
-  0
-ATTRIB
-  5
-53
-330
-17
-100
-AcDbEntity
-  8
-SINOP_PDO
-100
-AcDbText
- 10
-120.0
- 20
--112.0
- 30
-0.0
- 40
-2.5
-  1
-PDO2003
- 72
-1
- 11
-120.0
- 21
--112.0
- 31
-0.0
-100
-AcDbAttribute
-280
-0
-  2
-TIPO
- 70
-0
- 74
-2
- 71
-1
- 72
-0
- 11
-120.0
- 21
--112.0
- 31
-0.0
   0
 ATTRIB
   5
@@ -2969,107 +2991,21 @@ SINOP_PDO
 100
 AcDbText
  10
-112.0
+75.0
  20
--120.0
+-142.0
  30
 0.0
  40
 2.5
   1
-VDF-BRA1-JSO200-95003
- 72
-2
- 11
-112.0
- 21
--120.0
- 31
-0.0
-100
-AcDbAttribute
-280
-0
-  2
-CABO
- 70
-0
- 74
-1
- 71
-1
- 72
-0
- 11
-112.0
- 21
--120.0
- 31
-0.0
-  0
-SEQEND
-  5
-49
-330
-48
-100
-AcDbEntity
-  8
-SINOP_PDO
-  0
-INSERT
-  5
-4A
-330
-17
-100
-AcDbEntity
-  8
-SINOP_PDO
-100
-AcDbBlockReference
- 66
-1
-  2
-PDO
- 10
-60.0
- 20
--120.0
- 30
-0.0
- 41
-10.0
- 42
-10.0
-  0
-ATTRIB
-  5
-55
-330
-17
-100
-AcDbEntity
-  8
-SINOP_PDO
-100
-AcDbText
- 10
-60.0
- 20
--112.0
- 30
-0.0
- 40
-2.5
-  1
-PDO2004
+PDO3003
  72
 1
  11
-60.0
+75.0
  21
--112.0
+-142.0
  31
 0.0
 100
@@ -3087,15 +3023,15 @@ TIPO
  72
 0
  11
-60.0
+75.0
  21
--112.0
+-142.0
  31
 0.0
   0
 ATTRIB
   5
-56
+55
 330
 17
 100
@@ -3105,21 +3041,21 @@ SINOP_PDO
 100
 AcDbText
  10
-52.0
+67.0
  20
--120.0
+-150.0
  30
 0.0
  40
 2.5
   1
-VDF-BRA1-JSO200-95004
+VDF-PEN15-JSO201-95004
  72
 2
  11
-52.0
+67.0
  21
--120.0
+-150.0
  31
 0.0
 100
@@ -3137,21 +3073,45 @@ CABO
  72
 0
  11
-52.0
+67.0
  21
--120.0
+-150.0
  31
 0.0
   0
 SEQEND
   5
-4B
+53
 330
-4A
+52
 100
 AcDbEntity
   8
 SINOP_PDO
+  0
+LINE
+  5
+56
+330
+17
+100
+AcDbEntity
+  8
+SINOP_AEREO
+100
+AcDbLine
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+ 11
+30.0
+ 21
+-150.0
+ 31
+0.0
   0
 LINE
   5
@@ -3161,23 +3121,23 @@ LINE
 100
 AcDbEntity
   8
-SINOP_CONDUTA
+SINOP_AEREO
 100
 AcDbLine
  10
-0.0
+30.0
  20
-0.0
+-150.0
  30
 0.0
  11
-60.0
+75.0
  21
-0.0
+-150.0
  31
 0.0
   0
-LINE
+INSERT
   5
 58
 330
@@ -3185,47 +3145,25 @@ LINE
 100
 AcDbEntity
   8
-SINOP_AEREO
+SINOP_PDO
 100
-AcDbLine
+AcDbBlockReference
+ 66
+1
+  2
+PDO
  10
-0.0
+75.0
  20
-0.0
+-75.0
  30
 0.0
- 11
-60.0
- 21
--60.0
- 31
-0.0
+ 41
+10.0
+ 42
+10.0
   0
-LINE
-  5
-59
-330
-17
-100
-AcDbEntity
-  8
-SINOP_AEREO
-100
-AcDbLine
- 10
-0.0
- 20
-0.0
- 30
-0.0
- 11
-60.0
- 21
--120.0
- 31
-0.0
-  0
-LINE
+ATTRIB
   5
 5A
 330
@@ -3233,25 +3171,111 @@ LINE
 100
 AcDbEntity
   8
-SINOP_AEREO
+SINOP_PDO
 100
-AcDbLine
+AcDbText
  10
-60.0
+75.0
  20
--60.0
+-67.0
  30
 0.0
+ 40
+2.5
+  1
+PDO3004
+ 72
+1
  11
-120.0
+75.0
  21
--60.0
+-67.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+75.0
+ 21
+-67.0
  31
 0.0
   0
-LINE
+ATTRIB
   5
 5B
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+67.0
+ 20
+-75.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-PEN15-JSO201-95001
+ 72
+2
+ 11
+67.0
+ 21
+-75.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+67.0
+ 21
+-75.0
+ 31
+0.0
+  0
+SEQEND
+  5
+59
+330
+58
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
+LINE
+  5
+5C
 330
 17
 100
@@ -3261,15 +3285,359 @@ SINOP_AEREO
 100
 AcDbLine
  10
-60.0
+0.0
  20
--60.0
+0.0
  30
 0.0
  11
-120.0
+30.0
  21
--120.0
+-75.0
+ 31
+0.0
+  0
+LINE
+  5
+5D
+330
+17
+100
+AcDbEntity
+  8
+SINOP_AEREO
+100
+AcDbLine
+ 10
+30.0
+ 20
+-75.0
+ 30
+0.0
+ 11
+75.0
+ 21
+-75.0
+ 31
+0.0
+  0
+INSERT
+  5
+5E
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbBlockReference
+ 66
+1
+  2
+PDO
+ 10
+150.0
+ 20
+-75.0
+ 30
+0.0
+ 41
+10.0
+ 42
+10.0
+  0
+ATTRIB
+  5
+61
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+150.0
+ 20
+-67.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO3005
+ 72
+1
+ 11
+150.0
+ 21
+-67.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+150.0
+ 21
+-67.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+62
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+142.0
+ 20
+-75.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-PEN15-JSO201-95005
+ 72
+2
+ 11
+142.0
+ 21
+-75.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+142.0
+ 21
+-75.0
+ 31
+0.0
+  0
+SEQEND
+  5
+5F
+330
+5E
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
+LINE
+  5
+60
+330
+17
+100
+AcDbEntity
+  8
+SINOP_AEREO
+100
+AcDbLine
+ 10
+75.0
+ 20
+-75.0
+ 30
+0.0
+ 11
+150.0
+ 21
+-75.0
+ 31
+0.0
+  0
+INSERT
+  5
+63
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbBlockReference
+ 66
+1
+  2
+PDO
+ 10
+75.0
+ 20
+0.0
+ 30
+0.0
+ 41
+10.0
+ 42
+10.0
+  0
+ATTRIB
+  5
+65
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+75.0
+ 20
+-8.0
+ 30
+0.0
+ 40
+2.5
+  1
+PDO3006
+ 72
+1
+ 11
+75.0
+ 21
+-8.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+TIPO
+ 70
+0
+ 74
+2
+ 71
+1
+ 72
+0
+ 11
+75.0
+ 21
+-8.0
+ 31
+0.0
+  0
+ATTRIB
+  5
+66
+330
+17
+100
+AcDbEntity
+  8
+SINOP_PDO
+100
+AcDbText
+ 10
+67.0
+ 20
+0.0
+ 30
+0.0
+ 40
+2.5
+  1
+VDF-PEN15-JSO201-95003
+ 72
+2
+ 11
+67.0
+ 21
+0.0
+ 31
+0.0
+100
+AcDbAttribute
+280
+0
+  2
+CABO
+ 70
+0
+ 74
+1
+ 71
+1
+ 72
+0
+ 11
+67.0
+ 21
+0.0
+ 31
+0.0
+  0
+SEQEND
+  5
+64
+330
+63
+100
+AcDbEntity
+  8
+SINOP_PDO
+  0
+LINE
+  5
+67
+330
+17
+100
+AcDbEntity
+  8
+SINOP_AEREO
+100
+AcDbLine
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+ 11
+75.0
+ 21
+0.0
  31
 0.0
   0
@@ -4289,7 +4657,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-5E
+6A
   0
 DICTIONARYVAR
   5
@@ -4301,11 +4669,11 @@ DictionaryVariables
 280
 0
   1
-1.0.2 @ 2023-05-03T16:32:25.769271+00:00
+1.0.3 @ 2023-05-10T17:05:04.166806+00:00
   0
 DICTIONARYVAR
   5
-5E
+6A
 330
 2D
 100
@@ -4313,7 +4681,7 @@ DictionaryVariables
 280
 0
   1
-1.0.2 @ 2023-05-03T16:32:25.773821+00:00
+1.0.3 @ 2023-05-10T17:05:04.181868+00:00
   0
 ENDSEC
   0
