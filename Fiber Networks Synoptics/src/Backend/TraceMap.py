@@ -67,7 +67,7 @@ class TraceMap:
                 result = sz.link_table
         return result
 
-    def parser(self):
+    def parser(self, link_tables_path: str):
         for block in self.model_space.query("INSERT"):
             if re.match('^Central', block.dxf.layer):
                 self.central = Central(block)
@@ -85,7 +85,7 @@ class TraceMap:
             if re.match('^05 - Cabos Mistos', block.dxf.layer):
                 self.primary_cables.append(Cable())
         for jso in self.splitting_junctions:
-            sz = SplittingZone(jso.entity)
+            sz = SplittingZone(jso.entity, link_tables_path)
             for pdo in self.pdo_list:
                 if pdo.entity.get_attrib_text("TIPO") == jso.entity.get_attrib_text("TIPO"):
                     sz.add_pdo(pdo)
@@ -107,6 +107,11 @@ class TraceMap:
     def add_fusion_junction(self, fusion_junction):
         if fusion_junction not in self.fusion_junctions:
             self.fusion_junctions.append(fusion_junction)
+
+    def get_splitting_zone(self, identifier: str):
+        for sz in self.splitting_zones:
+            if sz.index == identifier:
+                return sz
 
     def print_central(self):
         print("CENTRAL")

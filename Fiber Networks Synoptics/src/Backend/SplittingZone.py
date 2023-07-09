@@ -11,14 +11,14 @@ import AttributeProcessing as ap
 
 class SplittingZone:
 
-    def __init__(self, entity):  # Instance Variables definition
+    def __init__(self, entity, path: str):  # Instance Variables definition
         self.jso = JSO(entity)
         self.index = entity.get_attrib_text("TIPO")
         self.jfo_list = list()
         self.pdo_list = list()
         self.document = ezdxf.new('R2018')
         self.model_space = self.document.modelspace()
-        self.link_table = self.link_table()
+        self.link_table = self.link_table(path)
 
     def add_pdo(self, pdo):
         if pdo not in self.pdo_list:
@@ -27,6 +27,18 @@ class SplittingZone:
     def add_jfo(self, jfo):
         if jfo not in self.jfo_list:
             self.jfo_list.append(jfo)
+
+    def is_pdo(self, ident):
+        for pdo in self.pdo_list:
+            if pdo.identifier == ident:
+                return True
+        return False
+
+    def is_jfo(self, ident):
+        for jfo in self.pdo_list:
+            if jfo.identifier == ident:
+                return True
+        return False
 
     @staticmethod
     def get_random_point():
@@ -76,10 +88,11 @@ class SplittingZone:
             result[key] = self.sort_branch(zone_dict, key)
         return result
 
-    def link_table(self) -> dict:
+    def link_table(self, path) -> dict:
         row_start = 13
         # filename = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\04 - Tabelas de juntas de Rede Secundária\Tabelas de Ligação da " + self.index + ".xlsx"
-        filename = r"C:\Users\User\Desktop\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\04 - Tabelas de juntas de Rede Secundária\Tabelas de Ligação da " + self.index + ".xlsx"
+        # filename = r"C:\Users\User\Desktop\Dissertation\Fiber Networks Synoptics\doc\dxf\exemplo VODAFONE\04 - Tabelas de juntas de Rede Secundária\Tabelas de Ligação da " + self.index + ".xlsx"
+        filename = path + "\\Tabelas de Ligação da " + self.index + ".xlsx"
         workbook = openpyxl.load_workbook(filename)
         zone_dict = {}
         for sheet in workbook.worksheets:

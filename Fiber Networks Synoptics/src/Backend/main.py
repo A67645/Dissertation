@@ -5,6 +5,7 @@ import ezdxf as ez
 from ezdxf.gfxattribs import GfxAttribs
 from Draw import Drawing
 import PySimpleGUI as sg
+import os
 
 
 def draw_test():
@@ -56,10 +57,23 @@ def main():
     font = ('Helvetica', 12, 'bold italic')
     sg.set_options(font=font)
     layout = [[sg.Image('logo_proef_oval.png', background_color='#010060')],
+              [sg.Text("Mapa de Rede (DXF): ", background_color='#17DAA4'),
+               sg.Input(key='-Mapa-'),
+               sg.FileBrowse(button_color='#17DAA4', file_types=(("Drawing Exchange Format", "*.DXF"),))],
+              [sg.Text("Tabelas de Ligação (Pasta): ", background_color='#17DAA4'),
+               sg.Input(key='-Tabelas-'),
+               sg.FolderBrowse(button_color='#17DAA4')],
               [sg.Button('Processar Traçado', button_color='#17DAA4')],
-              [sg.Button('Zona de Splitting', button_color='#17DAA4'), sg.Input(key='-ZONA-')],
-              [sg.Button('Tabela de Splitting', button_color='#17DAA4'), sg.Input(key='-TABELA-')],
-              [sg.Button('Sinótico', button_color='#17DAA4'), sg.Input(key='-LIGACAO-')],
+              [sg.Button('Zona de Splitting', button_color='#17DAA4'),
+               sg.Input(key='-ZONA-')],
+              [sg.Button('Tabela de Splitting', button_color='#17DAA4'),
+               sg.Input(key='-TABELA-')],
+              [sg.Text("Destino de Sinóticos (Pasta): ", background_color='#17DAA4'),
+               sg.Input(key='-Sinoticos-'),
+               sg.FolderBrowse(button_color='#17DAA4')],
+              [sg.Button('Gerar Sinóticos', button_color='#17DAA4')],
+              [sg.Button('Pré-visualização de Sinótico', button_color='#17DAA4'),
+               sg.Input(key='-LIGACAO-')],
               [sg.Button('SAIR', button_color='#17DAA4')]]
     window = sg.Window('Fiber Networks Synoptics', layout, size=(800, 600), background_color='#010060')
     while True:
@@ -67,7 +81,11 @@ def main():
         if event == sg.WIN_CLOSED or event == 'SAIR':
             break
         if event == "Processar Traçado":
-            trace_map.parser()
+            if values['-Mapa-'] is None or values['-Tabelas-'] is None:
+                sg.popup("Ficheiro de mapa de rede ou diretoria de tabelas por definir. Por favor preencha tais campos e tente de novo.")
+            else:
+                trace_map = TraceMap(values['-Mapa-'])
+                trace_map.parser(values['-Tabelas-'])
             sg.popup('Traçado Processado com Sucesso!')
         if event == 'Zona de Splitting':
             sg.popup(trace_map.print_splitting_zone(values['-ZONA-']))
@@ -75,9 +93,20 @@ def main():
             for sz in trace_map.splitting_zones:
                 if sz.index == values['-TABELA-']:
                     sg.popup(str(sz.link_table))
-        if event == 'Sinótico':
+        if event == 'Gerar Sinóticos':
+            if values['-Sinoticos-'] is None:
+                sg.popup("Diretoria destino dos sinóticos não selecionada.")
+            else:
+                for sz in trace_map.splitting_zones:
+                    filename = sz.index + ".DXF"
+                    folder_path = values['-Sinoticos-'] + '\\'
+                    drawing = Drawing()
+                    drawing.draw_to_dir(filename, folder_path, sz.link_table, sz)
+                sg.popup("Sinóticos Gerados com Sucesso para: " + values["-Sinoticos-"])
+        if event == 'Pré-visualização de Sinótico':
             drawing = Drawing()
-            drawing.draw(values['-LIGACAO-'], r"dxf\\", trace_map.link_table(values['-LIGACAO-']))
+            sz = trace_map.get_splitting_zone(values['-LIGACAO-'])
+            drawing.draw(values['-LIGACAO-'], r"dxf\\", trace_map.link_table(values['-LIGACAO-']), sz)
             drawing.convert_dxf2img(['dxf\\' + values['-LIGACAO-'] + '.dxf'], img_format='.png', img_res=150)
             sg.popup_no_buttons("Pré-visão de um Sinótico", title='Preview', text_color='#F7F6F2', keep_on_top=True,
                                 image="preview.png")
