@@ -86,12 +86,14 @@ class TraceMap:
                 self.primary_cables.append(Cable())
         for jso in self.splitting_junctions:
             sz = SplittingZone(jso.entity, link_tables_path)
+            #sz.add_coupled(jso.entity, jso.entity.get_attrib_text("JSO#"))
             for pdo in self.pdo_list:
                 if pdo.entity.get_attrib_text("TIPO") == jso.entity.get_attrib_text("TIPO"):
                     sz.add_pdo(pdo)
             for jfo in self.fusion_junctions:
                 if jfo.entity.get_attrib_text("TIPO") == jso.entity.get_attrib_text("TIPO"):
                     sz.add_jfo(jfo)
+                    sz.add_coupled(jfo.entity, jfo.identifier)
             self.splitting_zones.append(sz)
 
     def set_identifier(self, identifier):

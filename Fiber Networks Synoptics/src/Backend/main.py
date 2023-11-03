@@ -72,6 +72,10 @@ def main():
                sg.Input(key='-Sinoticos-'),
                sg.FolderBrowse(button_color='#17DAA4')],
               [sg.Button('Gerar Sinóticos', button_color='#17DAA4')],
+              [sg.Text('Pasta de destino de pré-visualização', background_color='#17DAA4'),
+               sg.Input(key='-PASTAVIS-'),
+               sg.FolderBrowse(button_color='#17DAA4')],
+              [sg.Text('Nome do Ficheiro PNG:', background_color='#17DAA4'), sg.InputText(key='-NAME-')],
               [sg.Button('Pré-visualização de Sinótico', button_color='#17DAA4'),
                sg.Input(key='-LIGACAO-')],
               [sg.Button('SAIR', button_color='#17DAA4')]]
@@ -107,7 +111,7 @@ def main():
             drawing = Drawing()
             sz = trace_map.get_splitting_zone(values['-LIGACAO-'])
             drawing.draw(values['-LIGACAO-'], r"dxf\\", trace_map.link_table(values['-LIGACAO-']), sz)
-            drawing.convert_dxf2img(['dxf\\' + values['-LIGACAO-'] + '.dxf'], img_format='.png', img_res=150)
+            drawing.convert_dxf2img(['dxf\\' + values['-LIGACAO-'] + '.dxf'], img_format='.png', img_res=150, path=values['-PASTAVIS-'], file=values['-NAME-'])
             sg.popup_no_buttons("Pré-visão de um Sinótico", title='Preview', text_color='#F7F6F2', keep_on_top=True,
                                 image="preview.png")
     window.close()

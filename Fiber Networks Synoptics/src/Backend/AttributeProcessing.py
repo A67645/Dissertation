@@ -40,3 +40,10 @@ def get_cable_type(block) -> str:
 def get_cable_id(cable: str) -> str:
     cable_id = re.split(' ', cable)
     return cable_id[0]
+
+
+def get_block(idetifier: str, pdo_list: list):
+    for pdo in pdo_list:
+        if pdo.identifier == idetifier:
+            return pdo
+

@@ -19,6 +19,7 @@ class SplittingZone:
         self.document = ezdxf.new('R2018')
         self.model_space = self.document.modelspace()
         self.link_table = self.link_table(path)
+        self.coupled = dict()
 
     def add_pdo(self, pdo):
         if pdo not in self.pdo_list:
@@ -39,6 +40,10 @@ class SplittingZone:
             if jfo.identifier == ident:
                 return True
         return False
+
+    def add_coupled(self, entity, index):
+        if entity.get_attrib_text("TIPO_ESTRUTURA") == "ACOPLADA":
+            self.coupled["PDO" + entity.get_attrib_text("JFO_PDO")] = index
 
     @staticmethod
     def get_random_point():
@@ -73,7 +78,8 @@ class SplittingZone:
         filename = r"C:\Users\thech\Desktop\MIEI\Dissertation\Fiber Networks Synoptics\\" + self.index + ".dxf"
         # self.document.saveas(filename)
 
-    def sort_branch(self, zone_dict: dict, key) -> dict:
+    @staticmethod
+    def sort_branch(zone_dict: dict, key) -> dict:
         result = {}
         for k in zone_dict[key].keys():
             if k == key:

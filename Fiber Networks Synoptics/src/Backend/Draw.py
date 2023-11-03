@@ -6,6 +6,7 @@ from ezdxf.addons.drawing.matplotlib import MatplotlibBackend
 from ezdxf.addons.drawing.properties import Properties, LayoutProperties
 from ezdxf.enums import TextEntityAlignment
 import re
+import AttributeProcessing as ap
 
 
 class Drawing:
@@ -14,6 +15,7 @@ class Drawing:
         self.modelspace = self.document.modelspace()
         self.coords = [0, 0]
         self.coord_map = dict()
+        self.block_attributes = dict()
 
     # layers as a list of tuples containing layer name and attributes such as color, linetype, etc.
     def layers(self, layers: list):
@@ -33,10 +35,15 @@ class Drawing:
             block.add_circle((0, 0), 0.5, dxfattribs={'layer': "SINOP_JSFO"})
         return block
 
-    def blockref(self, name: str, coords, dxfattribs: dict, attribs: dict):
-        blockref = self.modelspace.add_blockref(name, coords, dxfattribs)
+    def blockref(self, equipment: str, coords, dxfattribs: dict, attribs: dict, identifier: str):
+        blockref = self.modelspace.add_blockref(equipment, coords, dxfattribs)
         for key, value in attribs.items():
             blockref.add_attrib(key, value[0]).set_placement(value[1], align=value[2])
+        number_attributes = 1
+        for key, value in self.block_attributes[identifier]:
+            blockref.add_attrib(key, value).set_placement((coords[0]-8*number_attributes, coords[1]),
+                                                          align=TextEntityAlignment.TOP_RIGHT)
+            number_attributes += 1
 
         return blockref
 
@@ -45,7 +52,7 @@ class Drawing:
         print("draw block " + identifier + ' at ' + str(xy))
         self.blockref(equipment, xy, {'layer': layer, 'xscale': 10, 'yscale': 10},
                       {'TIPO': [identifier, (xy[0], xy[1]+8), TextEntityAlignment.MIDDLE_CENTER],
-                       'CABO': [cable, (xy[0]-8, xy[1]), TextEntityAlignment.BOTTOM_RIGHT]})
+                       'CABO': [cable, (xy[0]-8, xy[1]), TextEntityAlignment.BOTTOM_RIGHT]}, identifier)
         self.coord_map[identifier] = [xy[0], xy[1]]
         print(str(self.coord_map[identifier]))
 
@@ -93,7 +100,7 @@ class Drawing:
                 break
         return max_fork
 
-    def iterate_dict(self, jso: dict, max_fork, pdo_list=None):
+    def iterate_dict(self, jso: dict, max_fork):
         self.coords[0] += 100
         for key in jso[next(iter(jso))]:
             if key == next(iter(jso)) or re.match(r'^JSO', key):
@@ -111,7 +118,7 @@ class Drawing:
                 # (sz.is_pdo(index) or sz.is_jfo(index)) and (sz.is_pdo(block) or sz.is_jfo(block)) and
                 if not re.match(r'^JSO', index):
                     self.draw_line(self.coord_map[block], self.coord_map[index])
-                    print("Line Drawn from " + block + "at " + str(self.coord_map[block]) + "to " + index + "at " + str(self.coord_map[index]))
+                    print("Line Drawn from " + block + " at " + str(self.coord_map[block]) + " to " + index + " at " + str(self.coord_map[index]))
 
     def draw(self, filename: str, path: str, jso_zone: dict, sz):
         layers = [
@@ -122,18 +129,39 @@ class Drawing:
         ]
         self.layers(layers)
         self.modelspace.add_text("Synoptics Map Prototype", height=2, dxfattribs={'layer': '0'}).set_placement((25, 20))
+        self.block_attributes[sz.jso.identifier] = [('JSO#JFO', sz.jso.identifier)]
+        if sz.jso.entity.get_attrib("JFO_PDO") is not None:
+            self.block_attributes["PDO" + sz.jso.entity.get_attrib_text("JFO_PDO")] = [("JFO_PDO", "PDO" + sz.jso.entity.get_attrib_text("JFO_PDO")),
+                                                                                   ("CABO_CAP_COP", "0FO - 10M")]
+        for pdo in sz.coupled:
+            self.block_attributes[pdo] = [("JFO_PDO", pdo), ("CABO_CAP_COP", "0FO - 10M")]
         jso = self.block("JSO", "JSO")
         pdo = self.block("PDO", "PDO")
         jfo = self.block("JFO", "JFO")
         jsoXXX = self.blockref("JSO", (0, 0), {'layer': 'SINOP_JSFO', 'xscale': 10, 'yscale': 10},
-                               {'TIPO': [next(iter(jso_zone)), (0, 8), TextEntityAlignment.MIDDLE_CENTER]})
+                               {'TIPO': [next(iter(jso_zone)), (0, 8), TextEntityAlignment.MIDDLE_CENTER]}, sz.jso.identifier)
         self.coord_map[next(iter(jso_zone))] = [0, 0]
         self.coords = [0, 0]
         max_fork = 1
+        for pdo in sz.pdo_list:
+            block = pdo.entity
+            self.block_attributes["PDO" + block.get_attrib_text("JFO_PDO")] = [('JFO_PDO', "PDO" + block.get_attrib_text("JFO_PDO")),
+                                                                               ('CABO_CAP_COP', block.get_attrib_text("CABO_CAP_COP")),
+                                                                               ('(CAP/N1-N2-N3-N4)', block.get_attrib_text("(CAP/N1-N2-N3-N4)"))]
+        if len(sz.jfo_list) > 0:
+            for jfo in sz.jfo_list:
+                block = jfo.entity
+                if block.get_attrib("JFO_PDO") is not None:
+                    self.block_attributes["PDO" + block.get_attrib_text("JFO_PDO")] = [('JFO_PDO', "PDO" + block.get_attrib_text("JFO_PDO")),
+                                                                                       ('CABO_CAP_COP', "0FO - 10M")]
+                self.block_attributes[block.get_attrib_text("JFO#")] = [('JSO#JFO', block.get_attrib_text("JFO#")),
+                                                                        ('CABO_CAP_COP', block.get_attrib_text("FO_M"))]
+        print(str(self.block_attributes))
+
         self.iterate_dict(jso_zone, max_fork)
 
-        if sz.index != 'JSO209' and sz.index != 'JSO210' and sz.index != 'JSO212' and sz.index != 'JSO215':
-            self.cables(jso_zone, sz)
+        #if sz.index != 'JSO209' and sz.index != 'JSO210' and sz.index != 'JSO212' and sz.index != 'JSO215':
+        self.cables(jso_zone, sz)
 
         self.document.saveas(path + filename + ".dxf")
 
@@ -141,7 +169,7 @@ class Drawing:
         self.draw(filename, folder_path, jso_zone, sz)
 
     @staticmethod
-    def convert_dxf2img(names, img_format='.png', img_res=300):
+    def convert_dxf2img(names, img_format='.png', img_res=300, path='', file='preview'):
         for name in names:
             doc = ezdxf.readfile(name)
             msp = doc.modelspace()
@@ -160,6 +188,6 @@ class Drawing:
                 ax = fig.add_axes([0, 0, 1, 1])
                 out = MatplotlibBackend(ax)
                 Frontend(ctx, out).draw_layout(msp, layout_properties=layout_properties, finalize=True)
-                img_name = "preview"  # select the image name that is the same as the dxf file name
+                img_name = path + file  # select the image name that is the same as the dxf file name
                 first_param = img_name + img_format  #concatenate list and string
                 fig.savefig(first_param, dpi=img_res)
